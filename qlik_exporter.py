@@ -17,7 +17,7 @@ class Exporter:
                  qlik_fields: dict = None):
 
         """
-        Export the element specified by ID to CSV format. The class uses the installed Qlikview program.
+        Export the sheet element specified by ID to CSV format. The class uses the installed Qlikview program.
         :param qlik_path_file: Address or path to the qvw file, like a "C:\123.qvw" or "qvp://qlivkiewserver/report.qvw"
         :param qlik_object_id: ID of the sheet object (in properties) like a "CH08" or "CH26-197"
         :param qlik_export_path: path for exporting the object to a csv file.
@@ -48,7 +48,7 @@ class Exporter:
             Exporter.doc_num += 1
         return self._doc
 
-    def runner(self):
+    def _runner(self):
         logger.debug(f"Selecting bookmark {self.bookmark}...")
         if self.bookmark is not None:
             self.doc.RecallUserBookmark(self.bookmark)
@@ -82,10 +82,9 @@ class Exporter:
     def export(self):
         logger.info(f"Starting export {self.qlik_object_id} from {self.qlik_path_file}...")
         try:
-            return self.runner()
+            return self._runner()
         finally:
             self.shutdown()
-            pass
 
 
 if __name__ == "__main__":
